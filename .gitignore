@@ -1,0 +1,5 @@
+.idea/
+archive.zip
+data/__pycache__/
+data/npy_files/
+raw_jpg/
