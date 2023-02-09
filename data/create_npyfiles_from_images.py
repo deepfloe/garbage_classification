@@ -25,4 +25,4 @@ def create_npy_files(grayscale_conversion = True,rescale_factor=1):
         np.save(target_path,images_as_arrays)
 
 if __name__=='__main__':
-    create_npy_files(grayscale_conversion = True, rescale_factor=0.2)
+    create_npy_files(grayscale_conversion = True, rescale_factor=0.5)

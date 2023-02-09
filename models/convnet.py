@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from data.get_labelled_data import get_labelled_data
 from data.scaled_input_size import scaled_input_size
 
-rescale_factor = 0.2
+rescale_factor = 0.5
 num_classes = 6
 
 
