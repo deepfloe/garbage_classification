@@ -1,25 +1,23 @@
 import matplotlib.pyplot as plt
 
-def plot_history(history):
-
-    acc = history.history['acc']
-    val_acc = history.history['val_acc']
-    loss = history.history['loss']
+def plot_history(history, title):
+    train_loss = history.history['loss']
     val_loss = history.history['val_loss']
 
-    epochs = range(1, len(acc)+1)
+    train_acc = history.history['accuracy']
+    val_acc = history.history['val_accuracy']
 
-    plt.plot(epochs,acc, 'bo', label = 'Training acc')
-    plt.plot(epochs, val_acc, 'b', label = 'Validation acc')
-    plt.title('Training and validation accuracy')
+    fig, axes = plt.subplots(nrows=2, ncols=1, sharex=True)
+    # makes them share the x-axis, which are the epochs
 
-    plt.legend()
-    plt.figure()
+    axes[0].plot(train_loss, color='blue', label='train_loss')
+    axes[0].plot(val_loss, color='orange', label='val_loss')
+    axes[0].legend()
 
-    plt.plot(epochs, loss, 'bo', label='Training loss')
-    plt.plot(epochs, val_loss, 'b', label='Validation loss')
-    plt.title('Training and validation loss')
+    axes[1].plot(train_acc, color='blue', label='train_acc')
+    axes[1].plot(val_acc, color='orange', label='val_acc')
+    axes[1].set_xlabel('epochs')
+    axes[1].legend()
 
-    plt.legend()
-
+    plt.suptitle(title)
     plt.show()
