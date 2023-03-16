@@ -40,10 +40,19 @@ We train for 50 epochs and achieve a test accuracy of 58%. Overfitting starts ar
 We train for 25 epochs and achieve a test accuracy of 85%. The validation loss is relatively constant from epoch 5 onwards.
 ![vgg](https://user-images.githubusercontent.com/53785628/225336625-e5f89fd7-9881-4eb1-8bde-ac62cc6ca7f5.png)
 
+### VGG16 with data augmentations
+We train for 15 epochs and achieve a test accuracy of 82%. The val loss is fairly stable from epoch 3 onwards.
+![vgg_augment](https://user-images.githubusercontent.com/53785628/225597208-3fabadfa-048c-4ece-94d1-c0c21eb7e21d.png)
 
+## Questions and issues
+-
+preprocessing vgg model without data augmentation
+- Why does data augmentation not increase the test accuracy in the vgg model?
+- Using the function `vgg_preprocessing_datasets(train_dataset, val_dataset, test_dataset)` in `pre_processing.py` is much slower in training than `vgg_preprocessing(train_dataset, val_dataset, test_dataset). There seems to be an issue with `tensorflow.Data.dataset.map` method.
 
 ## Further directions
-The accuracy could posibly be improved by fine tuning the combined vgg model with a small learning rate or by using a state-of-the art image classification model as a base for transfer learning, for example inception.
+-The accuracy could posibly be improved by fine tuning the combined vgg model with a small learning rate or by using a state-of-the art image classification model as a base for transfer learning, for example inception.
+- As the dataset is quite small, k-cross-validation could be useful
 
 
 
