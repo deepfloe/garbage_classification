@@ -1,5 +1,6 @@
-# garbage_classification
+# Garbage Classification
 Testing different machine learning models to classify garbage images from https://www.kaggle.com/datasets/asdasdasasdas/garbage-classification
+As often the case in image classification tasks, one key challenge is the small dataset. On the other hand, no pre-processing is required on the dataset. The images have the same resolution, the photos of the objects are taken against a contrasting background.
 
 ## Literature
 The project follows chapter 8 of 
@@ -12,22 +13,25 @@ The dataset is split into training, test, val with the ratio -(0.5,0.25,0.25).
 
 <img src="https://user-images.githubusercontent.com/53785628/225296951-312184de-cfe3-4ebe-a96e-3be6b2fe2a0d.jpg"  width="30%" height="30%"><img src="https://user-images.githubusercontent.com/53785628/225297043-1be96046-ec2e-4700-9db3-560a1308abb0.jpg"  width="30%" height="30%"><img src="https://user-images.githubusercontent.com/53785628/225297095-c2de894f-f825-4305-9aa5-87e9c5f27541.jpg"  width="30%" height="30%">
 ## Data augmentation
-A common technique in image classification is data augmentation. The model becomes more robust by applying transformations to the input during training, in our case a random horinzotnal flip, zoom or rotation:
+A common technique in image classification is data augmentation. The model becomes more robust by applying transformations to the input during training, in our case a random horizontal flip, zoom or rotation:
 
 <img src="https://user-images.githubusercontent.com/53785628/225303330-6e61c6c5-9afc-4aa0-a63d-86d76ab10875.png"  width="40%" height="40%">
 
 ## The models
-Convnet from scratch with data augmentation: a simple convnet model, entirely trained from scratch with three convolutional+maxpooling layers
+- Convnet from scratch with data augmentation: a simple convnet model, entirely trained from scratch with three convolutional+maxpooling layers 
 
-uses the vgg16 convbase to preprocess data and then trains a small model on top. The advantage is that this is very fast, as applying the conv base only happens once.
+- vgg16 without data augmentation: uses the vgg16 convbase to preprocess data and then trains a small model on top. The advantage is that this is very fast, as applying the conv base only happens once.
 The disadvantage is that it cannot be combined with data augmentation.
 
-vgg16 with data augmentation: Here the conv base is a non-trainable part of the whole model, which is applied after the data augmentation layer. Training is significantly slower thann in the second model.
+- vgg16 with data augmentation: Here the conv base is a non-trainable part of the whole model, which is applied after the data augmentation layer. Training is significantly slower thann in the second model.
 
 ## How to use 
+
 1. download the dataset from https://www.kaggle.com/datasets/asdasdasasdas/garbage-classification, extract into a folder called "data" in the root repo
-2. run the file train_test_val_splitfolders.py which creates the subfolders called "train", "test" and "val" in data/
-3. to train the three different models, execute train_convnet_from_scratch, train_vgg, train_vgg_augment in the file training.py
+2. run the file train_test_val_splitfolders.py which creates the subfolders called "train", "test" and "val" in data
+3. On a local machine, to train the three different models, execute train_convnet_from_scratch, train_vgg, train_vgg_augment in the file training.py
+
+If on google colab, execute 1. and 2., upload the datafolder to google drive and run the whole script `full_google_colab_script.pynb`
 
 ## Results
 
@@ -45,13 +49,11 @@ We train for 15 epochs and achieve a test accuracy of 82%. The val loss is fairl
 ![vgg_augment](https://user-images.githubusercontent.com/53785628/225597208-3fabadfa-048c-4ece-94d1-c0c21eb7e21d.png)
 
 ## Questions and issues
--
-preprocessing vgg model without data augmentation
 - Why does data augmentation not increase the test accuracy in the vgg model?
-- Using the function `vgg_preprocessing_datasets(train_dataset, val_dataset, test_dataset)` in `pre_processing.py` is much slower in training than `vgg_preprocessing(train_dataset, val_dataset, test_dataset). There seems to be an issue with `tensorflow.Data.dataset.map` method.
+- Using the function `vgg_preprocessing_datasets(train_dataset, val_dataset, test_dataset)` in `pre_processing.py` is much slower in training than `vgg_preprocessing(train_dataset, val_dataset, test_dataset)`. There seems to be an issue with `tensorflow.Data.dataset.map` method.
 
 ## Further directions
--The accuracy could posibly be improved by fine tuning the combined vgg model with a small learning rate or by using a state-of-the art image classification model as a base for transfer learning, for example inception.
+- The accuracy could posibly be improved by fine tuning the combined vgg model with a small learning rate or by using a state-of-the art image classification model as a base for transfer learning, for example inception.
 - As the dataset is quite small, k-cross-validation could be useful
 
 
